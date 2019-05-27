@@ -73,8 +73,15 @@ def zajem (cam):
 		angle.append(angle_)
 		cv2.drawContours(frame1,[box],0,(0,0,255),2)
 		cv2.circle(frame1,(cX,cY),3,(255,255,255),-1)
+		cent,width,angle = cv2.minAreaRect(c)
+		box1 = np.int0(cv2.boxPoints((cent,width,angle)))
+		cv2.drawContours(calibrated_img,[box1],0,(0,0,255),2)
+		angles.append(angle)
 
-
+	true_angles = []
+	for i in range(len(angles)):
+		angles1 = angles[i] + 90
+		true_angles.append(angles1)
 
 
 	cv2.circle(frame1,(x,y),3,(255,255,255),-1)		
@@ -89,6 +96,7 @@ def zajem (cam):
 	object_shape = []
 	found_object = []
 	font = cv2.FONT_HERSHEY_SIMPLEX
+	angles = []
 
 	i = 0
 	for i in range(len(cx)):
@@ -118,8 +126,8 @@ def zajem (cam):
 		cv2.putText(frame,'hexagone',(cx[i]+10,cy[i]+30), font, 0.5,(255,255,255),2,cv2.LINE_AA)
 		object_shape == 'hexagone'
 	else: 
-		object_shape == 'circle'
-		cv2.putText(frame,'circle',(cx[i]+10,cy[i]+30), font, 0.5,(255,255,255),2,cv2.LINE_AA)
+		object_shape == 'trapez'
+		cv2.putText(frame,'trapez',(cx[i]+10,cy[i]+30), font, 0.5,(255,255,255),2,cv2.LINE_AA)
 
 	# determine the color of the recognized object
 	if ((h1<=80 and h1>= 40) and (s1<=255 and s1>= 180) and (v1<=100 and s1>= 45)):
@@ -143,4 +151,4 @@ def zajem (cam):
 	#object1 = color+ ' '+  object_shape
 	#found_object.append(object1)
 	cv2.imshow('',frame1)
-	return(distance,vectors,angle)
+	return(distance,vectors,true_angles)

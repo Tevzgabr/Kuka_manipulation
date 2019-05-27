@@ -34,10 +34,7 @@ while(1): #neskončna zanka ki preverja stanje naloge
 			print('Koti so: ',kot)
 	elif(stanje == 3): # robot pobral objek iskanje aruko markerja in premik na končno točko 
 		print('Stanje je ',stanje)
-		center = marker.marker(0)
-		print('objekti pobrani')
-	else:
-		print('zaključil z nalogo')
+		print('Zaključil z nalogo')
 		break
 	stanje = stanje+1
 		
